@@ -1,4 +1,3 @@
-// index.js - Backend simples para /login
 const express = require("express");
 const cors = require("cors");
 
@@ -14,7 +13,6 @@ app.use(express.json()); // parse application/json
 // POST /login
 app.post("/login", (req, res) => {
   try {
-    // Validação básica do corpo
     if (!req.is("application/json")) {
       return res
         .status(400)
@@ -40,7 +38,6 @@ app.post("/login", (req, res) => {
 
     // Validação das credenciais
     if (username === VALID_USER.username && password === VALID_USER.password) {
-      // sucesso (200). Retornamos um payload simples (sem JWT pois não é pedido)
       return res.status(200).json({ message: "Login bem-sucedido" });
     } else {
       // 401 Unauthorized
@@ -52,7 +49,6 @@ app.post("/login", (req, res) => {
   }
 });
 
-// Rota para garantir que backend está online
 app.get("/", (req, res) => res.json({ status: "ok" }));
 
 app.listen(PORT, () => {

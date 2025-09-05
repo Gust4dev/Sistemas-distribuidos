@@ -1,67 +1,57 @@
-# SD_C1 - Trabalho Prático Ciclo 01
+# Sistemas Distribuídos - Backend de Login
 
-## Integrantes
-- Nome1 Sobrenome1
-- Nome2 Sobrenome2
+Este projeto é um **servidor backend simples em Node.js com Express**, criado como parte dos estudos de **Sistemas Distribuídos**.  
+Ele disponibiliza uma rota de autenticação (`/login`) que valida usuário e senha de forma básica.
 
-> Substitua pelos nomes reais antes de enviar.
+---
 
-## Tecnologias utilizadas
-- Frontend: HTML + JavaScript (vanilla)
-- Backend: Node.js 18+ + Express 4.18
-- Dependências: express@4.18.2, cors@2.8.5
+## 🚀 Tecnologias
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [CORS](https://www.npmjs.com/package/cors)
 
-## Estrutura do projeto
-```
-SD_C1_Dupla_Nome1_Nome2.zip
-├─ README.md
-├─ frontend/
-│  └─ index.html
-└─ backend/
-   ├─ package.json
-   └─ index.js
-```
+---
 
-## Instruções para executar (professor)
-1. **Requisitos:** Node.js 18+ e npm instalados.
-2. Abra um terminal e rode o backend:
-```bash
-cd backend
-npm install
-npm start
-# (opcional para desenvolvimento: npm run dev se quiser usar nodemon)
-```
-O backend inicia em `http://localhost:4000`.
+## 📦 Pré-requisitos
+Antes de começar, você precisa ter instalado:
+- [Node.js](https://nodejs.org/) (versão 14 ou superior)
+- [npm](https://www.npmjs.com/)
 
-3. Abra `frontend/index.html` no navegador (duplo clique ou `Open File`).  
-   - O frontend envia POST para `http://localhost:4000/login`.
+---
 
-## Credenciais para teste (padrão)
-- **Usuário:** `aluno`
-- **Senha:** `senha123`
+## ⚙️ Instalação e execução
 
-## Endpoints
-- `POST /login`  
-  - Body JSON: `{ "username": "...", "password": "..." }`  
-  - Respostas:
-    - `200 OK` — `{ message: "Login bem-sucedido" }`
-    - `401 Unauthorized` — `{ error: "Credenciais inválidas" }`
-    - `400 Bad Request` — `{ error: "Requisição inválida..." }`
+1. Acesse a pasta do backend:
+   ```bash
+   cd backend
+   ```
 
-## Como testar com curl (exemplos)
-1. Sucesso:
-```bash
-curl -i -X POST http://localhost:4000/login       -H "Content-Type: application/json"       -d '{"username":"aluno","password":"senha123"}'
-```
-2. Credenciais inválidas:
-```bash
-curl -i -X POST http://localhost:4000/login       -H "Content-Type: application/json"       -d '{"username":"aluno","password":"errada"}'
-```
-3. Requisição inválida (campo faltando):
-```bash
-curl -i -X POST http://localhost:4000/login       -H "Content-Type: application/json"       -d '{"username":""}'
-```
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
 
-## Observações
-- Não há uso de banco de dados conforme especificação.
-- Se desejar TypeScript/React para portfólio, podemos evoluir após a entrega.
+3. Inicie o servidor:
+   ```bash
+   npm start
+   ```
+
+O servidor será iniciado em:  
+👉 `http://localhost:4000`
+
+---
+
+## 📌 Endpoints
+
+- **POST `/login`** → Valida credenciais enviadas em JSON:
+  ```json
+  {
+    "username": "aluno",
+    "password": "senha"
+  }
+  ```
+
+---
+
+## 👤 Autor
+- Gustavo Gomes dos Santos - 2111267
