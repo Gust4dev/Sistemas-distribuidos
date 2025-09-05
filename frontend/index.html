@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - Trabalho SD C1</title>
+  <style>
+    body { font-family: Arial, sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; background:#f4f6f8; }
+    .card { background:white; padding:20px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.08); width:320px; }
+    label { display:block; margin-top:8px; font-size:14px; }
+    input { width:100%; padding:8px; margin-top:6px; box-sizing:border-box; }
+    button { margin-top:12px; padding:10px; width:100%; cursor:pointer; }
+    .msg { margin-top:12px; font-size:14px; }
+    .error { color:#b00020; }
+    .success { color:#0a7a1a; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>Entrar</h3>
+    <label for="username">Usuário</label>
+    <input id="username" type="text" placeholder="aluno" />
+
+    <label for="password">Senha</label>
+    <input id="password" type="password" placeholder="senha" />
+
+    <button id="btn">Entrar</button>
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <script>
+    const backendUrl = 'http://localhost:4000/login'; // altere se necessário
+
+    document.getElementById('btn').addEventListener('click', async () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('msg');
+      msg.textContent = ''; msg.className = 'msg';
+
+      try {
+        const resp = await fetch(backendUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await resp.json().catch(()=>({}));
+
+        if (resp.status === 200) {
+          msg.textContent = data.message || 'Login bem-sucedido';
+          msg.classList.add('success');
+        } else if (resp.status === 401) {
+          msg.textContent = data.error || 'Credenciais inválidas';
+          msg.classList.add('error');
+        } else if (resp.status === 400) {
+          msg.textContent = data.error || 'Requisição inválida';
+          msg.classList.add('error');
+        } else {
+          msg.textContent = data.error || `Erro: ${resp.status}`;
+          msg.classList.add('error');
+        }
+      } catch (err) {
+        console.error('Erro fetch:', err);
+        msg.textContent = 'Não foi possível conectar ao servidor';
+        msg.classList.add('error');
+      }
+    });
+
+    // Submeter com Enter
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('btn').click();
+    });
+  </script>
+</body>
+</html>
